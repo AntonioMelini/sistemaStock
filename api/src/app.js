@@ -1,13 +1,8 @@
 const express = require('express');
+const routes = require('./routes')
 
 const app = express();
+app.use("/",routes);
 
-app.get('/',(req,res)=>{
-    try {
-        res.send('holaas')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
 
 module.exports= app;
