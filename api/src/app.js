@@ -4,12 +4,10 @@ const app = express();
 
 app.get('/',(req,res)=>{
     try {
-        res.send('holaa')
+        res.send('holaas')
     } catch (error) {
         res.send({error: error.message})
     }
 })
 
-app.listen(3000,()=>{
-    console.log("Server running ...");
-})
+module.exports= app;
