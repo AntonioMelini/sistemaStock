@@ -1,21 +1,21 @@
 const {sequelize}= require('../database/db');
 const {DataTypes}= require('sequelize');
-const {Compra} =require('./Compra');
-const { Venta } = require('./Venta');
-const { Producto } = require('./Producto');
+const {Purchase} =require('./Purchase');
+const { Sale } = require('./Sale');
+const { Product } = require('./Product');
 
 
- const Usuario = sequelize.define('usuarios', {
+ const User = sequelize.define('users', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
     },
-    nombre: {
+    name: {
         type: DataTypes.STRING(60),
         allowNull:false,
     },
-    apellido: {
+    lastname: {
         type: DataTypes.STRING(60),
         allowNull:false,
     },
@@ -37,34 +37,34 @@ const { Producto } = require('./Producto');
     timestamps: false
 })
 
-Usuario.hasMany(Compra,{
+User.hasMany(Purchase,{
     foreignKey: 'userId',
     sourceKey: 'id'
 });
 
-Compra.belongsTo(Usuario, {
+Purchase.belongsTo(User, {
     foreignKey: 'userId',
     targetKey: 'id'
 })
 
-Usuario.hasMany(Venta,{
+User.hasMany(Sale,{
     foreignKey: 'userId',
     sourceKey: 'id'
 });
 
-Venta.belongsTo(Usuario, {
+Sale.belongsTo(User, {
     foreignKey: 'userId',
     targetKey: 'id'
 })
 
-Usuario.hasMany(Producto, {
+User.hasMany(Product, {
     foreignKey: 'userId',
     sourceKey: 'id'
 })
-Producto.belongsTo(Usuario, {
+Product.belongsTo(User, {
     foreignKey: 'userId',
     targetKey: 'id'
 })
 
 
-module.exports={Usuario};
+module.exports={User};

@@ -9,10 +9,10 @@ const  ventaRouter  = require('./venta.routes');
 const router = Router();
 
 
-router.use('/categoria',categoriaRouter)
-router.use('/compra',compraRouter)
-router.use('/producto',productoRouter)
-router.use('/usuario',usuarioRouter)
-router.use('/venta',ventaRouter)
+router.use('/categories',categoriaRouter)
+router.use('/sales',compraRouter)
+router.use('/products',productoRouter)
+router.use('/users',usuarioRouter)
+router.use('/purchases',ventaRouter)
 
 module.exports=router;

@@ -1,8 +1,8 @@
 const {sequelize}= require('../database/db');
 const {DataTypes}= require('sequelize');
-const { Categoria } = require('./Categoria');
+const { Category } = require('./Category');
 
- const Producto = sequelize.define('productos', {
+ const Product = sequelize.define('products', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
@@ -12,18 +12,18 @@ const { Categoria } = require('./Categoria');
         type: DataTypes.BIGINT,
         allowNull:false,
     },
-    precio: {
+    price: {
         type: DataTypes.FLOAT,
         allowNull:false,
     },
-    detalle: {
+    detail: {
         type: DataTypes.TEXT
     },
-    imagen: {
+    image: {
         type: DataTypes.TEXT,
         allowNull:false,
     },
-    nombre: {
+    name: {
         type: DataTypes.STRING(80),
         allowNull:false,
         unique:true
@@ -31,13 +31,13 @@ const { Categoria } = require('./Categoria');
 }, {
     timestamps: false
 })
-module.exports={Producto};
+module.exports={Product};
 
-Categoria.hasMany(Producto, {
-    foreignKey: 'categoriaId',
+Category.hasMany(Product, {
+    foreignKey: 'categoryId',
     sourceKey: 'id'
 });
-Producto.belongsTo(Categoria, {
-    foreignKey: 'categoriaId',
+Product.belongsTo(Category, {
+    foreignKey: 'categoryId',
     targetKey: 'id'
 });
