@@ -16,7 +16,9 @@ const updateUserEmail =  (req)=>{
 const updateUserNicknames =  (req)=>{
     Users.updateUserNicknames(req);
 }
-
+const deleteUser = (req)=>{
+    Users.deleteUser(req)
+}
 
 
 module.exports = {
@@ -24,5 +26,6 @@ module.exports = {
     getAllUser,
     updateUserPassword,
     updateUserEmail,
-    updateUserNicknames
+    updateUserNicknames,
+    deleteUser
 }

@@ -11,7 +11,7 @@ usuarioRouter
     .put('/emails/:id',userController.updateUserEmail)
     .put('/nickname',userController.updateUserNicknames)
     .post('/create',userController.createUser)
-    .delete('/:id',userController.deleteUser)
+    .delete('/delete/:id',userController.deleteUser)
 
 
 
