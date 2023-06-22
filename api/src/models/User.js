@@ -37,6 +37,8 @@ const { Product } = require('./Product');
     timestamps: false
 })
 
+module.exports={User};
+
 User.hasMany(Purchase,{
     foreignKey: 'userId',
     sourceKey: 'id'
@@ -66,5 +68,3 @@ Product.belongsTo(User, {
     targetKey: 'id'
 })
 
-
-module.exports={User};

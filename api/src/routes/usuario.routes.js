@@ -5,18 +5,13 @@ const usuarioRouter = Router();
 
 
 
-usuarioRouter.get('/',userController.getAllUser)
-usuarioRouter.put('/password',userController.updateUserPassword)
-usuarioRouter.put('/email',userController.updateUserEmail)
-usuarioRouter.put('/nickname',userController.updateUserNicknames)
-usuarioRouter.post('/create',userController.createUser)
-usuarioRouter.delete('/',(req,res)=>{
-    try {
-        res.send('entraste en usuario')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
+usuarioRouter
+    .get('/',userController.getAllUser)
+    .put('/password',userController.updateUserPassword)
+    .put('/emails/:id',userController.updateUserEmail)
+    .put('/nickname',userController.updateUserNicknames)
+    .post('/create',userController.createUser)
+    .delete('/:id',userController.deleteUser)
 
 
 
