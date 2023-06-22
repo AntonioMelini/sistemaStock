@@ -8,11 +8,13 @@ const cors = require('cors')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : true}));
-app.use("/api",routes);
-app.use(morgan('tiny'));
-
+app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use(cors())
+
+app.use("/api",routes);
+
+
 
 module.exports= app;

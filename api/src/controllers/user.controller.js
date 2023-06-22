@@ -27,12 +27,17 @@ const updateUserNicknames = async(req,res)=>{
    res.send('update was succed');
 }
 
+const deleteUser = async (req,res)=>{
+   await userService.deleteUser(req);
+   res.send('user was deleted');
+}
    module.exports={
     createUser,
     getAllUser,
     updateUserPassword,
     updateUserEmail,
-    updateUserNicknames
+    updateUserNicknames,
+    deleteUser
 
 
    } 

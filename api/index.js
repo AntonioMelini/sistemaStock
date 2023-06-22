@@ -1,7 +1,6 @@
 const app =  require('./src/app');
 const {sequelize} = require('./src/database/db');
-const dotenv = require('dotenv');
-dotenv.config();
+
 require('./src/models/Category')
 require('./src/models/Purchase')
 require('./src/models/Product')
@@ -12,7 +11,7 @@ const {API_PORT} = process.env
 
 
 
-
+ 
 const main = async ()=>{
     try {
         await sequelize.sync({force:false})

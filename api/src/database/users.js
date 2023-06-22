@@ -11,6 +11,7 @@ const hashingPassword =async (password)=>{
     return await bcrypt.hash(password,10)
     
     }
+    /////////////////////////////
     
 const createUser = async (req)=> {
     try {
@@ -109,20 +110,17 @@ const updateUserPassword = async (req)=> {
 } 
 const updateUserEmail = async (req)=> {
     try {
-        const {oldEmail,newEmail} = req.body;
-        if( oldEmail && newEmail){
-            const user = await User.findOne({
-                where:{
-                    email:oldEmail
-                }
-            })
+        const {id}= req.params
+        const {newEmail} = req.body;
+        if( id && newEmail){
+            const user = await User.findByPk(id)
             const mustBeEmpty = await User.findOne({
                 where:{
                     email:newEmail
                 }
             })
            
-        if(!mustBeEmpty ){
+        if(!mustBeEmpty && user ){
             user.email= newEmail;
             await user.save();
         }else{
@@ -136,11 +134,27 @@ const updateUserEmail = async (req)=> {
        throw new Error(error.message)
     }
 }
-const updateUserNicknames = async (req,res)=> {
+const updateUserNicknames = async (req)=> {
     try {
         const {name,lastname,email}=req.body;
         await updateOpcion(name,lastname,email);
        
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+
+const deleteUser = async (req) =>{
+    try {
+        const {id}=req.params;
+        if(id){
+            const user = await User.findByPk(id);
+            if(!user){
+                throw new Error('Invalid email');
+            }
+            await user.destroy();
+        }
     } catch (error) {
         throw new Error(error.message);
     }
@@ -150,7 +164,8 @@ module.exports={
     getAllUser,
     updateUserPassword,
     updateUserEmail,
-    updateUserNicknames
+    updateUserNicknames,
+    deleteUser
 
 }
 
