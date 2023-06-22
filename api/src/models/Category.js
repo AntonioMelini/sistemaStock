@@ -1,13 +1,13 @@
 const {sequelize}= require('../database/db');
 const {DataTypes}= require('sequelize');
 
- const Categoria = sequelize.define('categorias', {
+ const Category = sequelize.define('categories', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
     },
-    nombre: {
+    name: {
         type: DataTypes.STRING(80),
         allowNull:false,
         unique:true
@@ -15,4 +15,4 @@ const {DataTypes}= require('sequelize');
 }, {
     timestamps: false
 })
-module.exports={Categoria};
+module.exports={Category};

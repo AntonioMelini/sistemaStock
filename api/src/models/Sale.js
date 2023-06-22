@@ -1,28 +1,28 @@
 const {sequelize}= require('../database/db');
 const {DataTypes}= require('sequelize');
-const { Producto } = require('./Producto');
+const { Product } = require('./Product');
 
 
 
- const Venta = sequelize.define('ventas', {
+ const Sale = sequelize.define('sales', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement:true,
     },
-    fecha: {
+    date: {
         type: DataTypes.DATE,
         allowNull:false
     },
-    cantidad: {
+    amount: {
         type: DataTypes.BIGINT,
         allowNull:false,
     },
-    precio: {
+    price: {
         type: DataTypes.FLOAT,
         allowNull:false,
     },
-    descripcion: {
+    detail: {
         type: DataTypes.TEXT,
     }
     
@@ -30,13 +30,13 @@ const { Producto } = require('./Producto');
 }, {
     timestamps: false
 })
-module.exports={Venta};
+module.exports={Sale};
 
-Venta.belongsTo(Producto, {
-    foreignKey: 'productoId',
+Sale.belongsTo(Product, {
+    foreignKey: 'productId',
     targetKey: 'id'
 })
-Producto.hasOne(Venta,{
-    foreignKey: 'productoId',
+Product.hasOne(Sale,{
+    foreignKey: 'productId',
     sourceKey: 'id'
 })
