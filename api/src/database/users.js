@@ -151,7 +151,7 @@ const deleteUser = async (req) =>{
         if(id){
             const user = await User.findByPk(id);
             if(!user){
-                throw new Error('Invalid email');
+                throw new Error('Invalid id');
             }
             await user.destroy();
         }
