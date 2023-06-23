@@ -3,33 +3,34 @@ const userService = require('../services/user.service')
 
 const createUser = async(req,res)=>{
    await userService.createUser(req);
-   res.send('User was created');
+   res.status(201).send({status: 'Ok', data:'User was created'});
 }
 
 
 const getAllUser = async (req,res)=>{
        const allUsers = await userService.getAllUser();
-       res.send(allUsers)
+       res.status(200).send({status: 'Ok', data:allUsers});
 }
 
 const updateUserPassword = async(req,res)=>{
     await userService.updateUserPassword(req);
-    res.send('update was succes');
+    res.status(200).send({status: 'Ok', data:'update was succes'});
 }
 
 const updateUserEmail= async(req,res)=>{
     await userService.updateUserEmail(req);
-    res.send('update was succed');
+    res.status(200).send({status: 'Ok', data:'update was succes'});
+   
 }
 
 const updateUserNicknames = async(req,res)=>{
    await userService.updateUserNicknames(req);
-   res.send('update was succed');
+   res.status(200).send({status: 'Ok', data:'update was succes'});
 }
 
 const deleteUser = async (req,res)=>{
    await userService.deleteUser(req);
-   res.send('user was deleted');
+   res.status(200).send({status: 'Ok', data:'update was succes'});
 }
    module.exports={
     createUser,

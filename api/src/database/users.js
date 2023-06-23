@@ -20,8 +20,18 @@ const createUser = async (req)=> {
         isCompleteThePost(obj);
         obj.password= await hashingPassword(obj.password)
         console.log(obj.password);
-        await  User.create(obj)
-        return true
+        const isAlreadyCreated = await User.findOne({
+            where:{
+                email:obj.email
+            }
+        })
+        if(!isAlreadyCreated){
+            await  User.create(obj)
+            return true
+        }else{
+            throw new Error('User already in use')
+        }
+     
     } catch (error) {
         throw new Error(error.message);
     }
