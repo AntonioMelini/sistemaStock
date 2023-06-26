@@ -1,56 +1,50 @@
 const {User} = require('../models/User');
 const bcrypt = require('bcrypt');
-
-
-const isCompleteThePost= (obj)=>{
-    if(obj.name && obj.lastname && obj.email && obj.password) return true
-    else throw new Error ('Invalid Post')
-}
+const customErrors = require('../utils/error');
+const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
 
 const hashingPassword =async (password)=>{
     return await bcrypt.hash(password,10)
     
-    }
-    /////////////////////////////
+}
     
-const createUser = async (req)=> {
+const createUser = async (obj)=> {
     try {
-        console.log("       aa   ",req.body);
-         const obj = req.body;
-        isCompleteThePost(obj);
-        obj.password= await hashingPassword(obj.password)
-        console.log(obj.password);
-        const isAlreadyCreated = await User.findOne({
-            where:{
-                email:obj.email
-            }
-        })
-        if(!isAlreadyCreated){
-            await  User.create(obj)
-            return true
-        }else{
-            throw new Error('User already in use')
-        }
-     
+       const isAlreadyCreated = await User.findOne({
+           where:{
+               email:obj.email
+           }
+       })
+       if(!isAlreadyCreated){
+           await  User.create(obj)
+           return true
+       }else{
+           const err = new customErrors('User email already in use',400);
+          throw (err)
+       }
     } catch (error) {
-        throw new Error(error.message);
-    }
+        console.log('entro a error de database');
+        throw( error)
+       
+    }   
+   
+       
+    
 }
 
-/////////////////////////////
 
-const getAllUser = async ()=> {
-    try {
+// const getAllUser = async ()=> {
+//     try {
       
-        const usuariosDB = await User.findAll({
-            attributes:{exclude:['password']}
-        })
+//         const usuariosDB = await User.findAll({
+//             attributes:{exclude:['password']}
+//         })
         
-        return usuariosDB
-    } catch (error) {
-        res.send({error: error.message})
-    }
-}
+//         return usuariosDB
+//     } catch (error) {
+//         res.send({error: error.message})
+//     }
+// }
 
 ////////////////////////////
 
@@ -90,39 +84,42 @@ const updateOpcion= async (name,lastname,email)=>{
          await user.save();
      }
     } else{
-     throw new Error('please send valid params')
+        const err = new customErrors('please send valid params',400)
+        throw (err)
     }
 }
  ////////////////////
 
-const updateUserPassword = async (req)=> {
+const updateUserPassword = async (password,email)=> {
     try {
-        const {password,email} = req.body;
         
-        if(password && email){
           const user=  await User.findOne({
                 where:{
                     email:email
                 }
             })
             console.log(user)
-        user.password = await hashingPassword(password);
+            if(user){
+                user.password = await hashingPassword(password);
         
-        await user.save();
-        return true;
-        }else{
-             new Error('Please send password and email valid')
-        }
+                await user.save();
+                return true;
+            }else{
+                const err = new customErrors('Please send  email valid',400)
+                throw (err);
+            }
+       
+        
         
     } catch (error) {
-       throw new Error(error.message)
+        console.log("entro a error de database");
+       throw (error);
     }
 } 
-const updateUserEmail = async (req)=> {
+const updateUserEmail = async (id,newEmail)=> {
     try {
-        const {id}= req.params
-        const {newEmail} = req.body;
-        if( id && newEmail){
+       
+       
             const user = await User.findByPk(id)
             const mustBeEmpty = await User.findOne({
                 where:{
@@ -134,44 +131,44 @@ const updateUserEmail = async (req)=> {
             user.email= newEmail;
             await user.save();
         }else{
-            throw new Error('Email already in use')
-        }
-        }else{
-            throw new Error('PLease send old email and new email')
+            const err= new customErrors('Email already in use',400)
+            throw (err)
         }
         
+        
     } catch (error) {
-       throw new Error(error.message)
+       throw (error)
     }
 }
-const updateUserNicknames = async (req)=> {
+const updateUserNicknames = async (name,lastname,email)=> {
     try {
-        const {name,lastname,email}=req.body;
+     
         await updateOpcion(name,lastname,email);
        
     } catch (error) {
-        throw new Error(error.message);
+        console.log("entro a error de database");
+        throw (error)
     }
 }
 
 
-const deleteUser = async (req) =>{
+const deleteUser = async (id) =>{
     try {
-        const {id}=req.params;
-        if(id){
             const user = await User.findByPk(id);
             if(!user){
-                throw new Error('Invalid id');
+                const err = new customErrors('Invalid id',400);
+                throw(err);
             }
             await user.destroy();
-        }
+        
     } catch (error) {
-        throw new Error(error.message);
+        console.log("error database");
+        throw (error);
     }
 }
 module.exports={
     createUser,
-    getAllUser,
+    // getAllUser,
     updateUserPassword,
     updateUserEmail,
     updateUserNicknames,

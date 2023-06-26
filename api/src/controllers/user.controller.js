@@ -1,40 +1,41 @@
 const userService = require('../services/user.service')
+const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
+
+const createUser =asyncErrorHandler(  async(req,res,next)=>{
+   
+      await userService.createUser(req,res,next);
+      res.status(201).send({status: 'Ok', data:'User was created'});
+})
 
 
-const createUser = async(req,res)=>{
-   await userService.createUser(req);
-   res.status(201).send({status: 'Ok', data:'User was created'});
-}
+// const getAllUser = async (req,res)=>{
+//        const allUsers = await userService.getAllUser();
+//        res.status(200).send({status: 'Ok', data:allUsers});
+// }
 
-
-const getAllUser = async (req,res)=>{
-       const allUsers = await userService.getAllUser();
-       res.status(200).send({status: 'Ok', data:allUsers});
-}
-
-const updateUserPassword = async(req,res)=>{
+const updateUserPassword = asyncErrorHandler(async(req,res,next)=>{
     await userService.updateUserPassword(req);
     res.status(200).send({status: 'Ok', data:'update was succes'});
-}
+})
 
-const updateUserEmail= async(req,res)=>{
+const updateUserEmail= asyncErrorHandler(async(req,res)=>{
     await userService.updateUserEmail(req);
     res.status(200).send({status: 'Ok', data:'update was succes'});
    
-}
+})
 
-const updateUserNicknames = async(req,res)=>{
+const updateUserNicknames = asyncErrorHandler(async(req,res)=>{
    await userService.updateUserNicknames(req);
    res.status(200).send({status: 'Ok', data:'update was succes'});
-}
+})
 
-const deleteUser = async (req,res)=>{
+const deleteUser = asyncErrorHandler(async (req,res)=>{
    await userService.deleteUser(req);
-   res.status(200).send({status: 'Ok', data:'update was succes'});
-}
+   res.status(200).send({status: 'Ok', data:'delete was succes'});
+})
    module.exports={
     createUser,
-    getAllUser,
+   //  getAllUser,
     updateUserPassword,
     updateUserEmail,
     updateUserNicknames,
