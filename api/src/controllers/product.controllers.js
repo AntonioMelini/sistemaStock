@@ -1,24 +1,24 @@
 const asyncErrorHandler = require('../middlewares/asyncErrorHandler');
-
+const productService = require('../services/product.service');
 
 const  getAllProducts = asyncErrorHandler(async (req,res,next)=>{
-    const products = await Products.getAllProducts(req);
+    const products = await productService.getAllProducts(req);
     res.status(200).json({status: 'Ok', data: products});
 })
 const   getOneProduct= asyncErrorHandler (async (req,res,next)=>{
-    const product = await Products.getOneProduct(req);
+    const product = await productService.getOneProduct(req);
     res.status(200).json({status: 'Ok', data:product});
 })
 const   createProduct= asyncErrorHandler (async (req,res,next)=>{
-    await Products.createProduct(req);
+    await productService.createProduct(req);
     res.status(201).json({status: 'Ok', data:'Product was created'});
 })
 const   updateProduct= asyncErrorHandler (async (req,res,next)=>{
-    await Products.updateProduct(req);
+    await productService.updateProduct(req);
     res.status(201).json({status: 'Ok', data:'Product was updated'});
 })
 const   deleteProduct= asyncErrorHandler (async (req,res,next)=>{
-    await Products.deleteProduct(req);
+    await productService.deleteProduct(req);
     res.status(200).json({status: 'Ok', data:'Product was deleted'});
 })
 
