@@ -10,8 +10,8 @@ usuarioRouter
     .put('/password',userController.updateUserPassword)
     .put('/emails/:id',userController.updateUserEmail)
     .put('/nickname',userController.updateUserNicknames)
-    .post('/create',userController.createUser)
-    .delete('/delete/:id',userController.deleteUser)
+    .post('/',userController.createUser)
+    .delete('/:id',userController.deleteUser)
 
 
 
