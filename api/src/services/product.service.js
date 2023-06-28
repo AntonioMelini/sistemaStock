@@ -57,7 +57,8 @@ const   createProduct=  async (req)=>{
             const err = new customErrors ('Invalid Params', 400);
             throw (err);
         }
-        const newName = `${name}-${id}`
+
+        const newName = `${name.toUpperCase()}-${id}`
         const newProduct= await Products.createProduct(stock,price,detail,image,newName);
         await user.addProduct(newProduct)
        
