@@ -41,8 +41,9 @@ const createProduct = async(stock,price,detail,image,name)=>{
         })
     } catch (error) {
         console.log("ERROR EN LA DATABASE CREATEPRODUCT");
-        console.log(error);
-        const err = new customErrors (error.message||'Database Error', error.statusCode||400);
+        //console.log(error);
+        
+        const err = new customErrors (error.errors[0].message || error.message ||'Database Error', error.statusCode||400);
         throw (err);
     }
 };
