@@ -1,13 +1,11 @@
 const {Router} = require('express');
 const categoriaRouter = Router();
+const categoryControllers = require('../controllers/category.controllers');
 
-
-categoriaRouter.get('/',(req,res)=>{
-    try {
-        res.send('entraste en categoria')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
+categoriaRouter
+        .get('/',categoryControllers.getAllCategories)
+        .post('/',categoryControllers.createCategory)
+        .delete('/',categoryControllers.deleteCategory)
+        .put('/',categoryControllers.updateCategory)
 
 module.exports=categoriaRouter
