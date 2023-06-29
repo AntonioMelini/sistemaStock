@@ -10,7 +10,10 @@ const {DataTypes}= require('sequelize');
     name: {
         type: DataTypes.STRING(80),
         allowNull:false,
-        unique:true
+        unique:true,
+        get(){
+            return this.getDataValue('name')?.split('-')[0]
+        }
     }
 }, {
     timestamps: false

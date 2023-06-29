@@ -29,7 +29,7 @@ const getOneProduct = async (userId,id)=>{
     }
 };
 
-const createProduct = async(stock,price,detail,image,name)=>{
+const createProduct = async(stock,price,detail,image,name,categoryId)=>{
     try {
         // falta el categoria id
         return await Product.create({
@@ -38,6 +38,7 @@ const createProduct = async(stock,price,detail,image,name)=>{
             detail,
             image,
             name,
+            categoryId
         })
     } catch (error) {
         console.log("ERROR EN LA DATABASE CREATEPRODUCT");
