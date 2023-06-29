@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const categoriaRouter  = require('./categoria.routes');
-const  compraRouter  = require('./compra.routes');
+const  compraRouter  = require('./purchase.routes');
 const  productoRouter  = require('./producto.routes');
 const  usuarioRouter  = require('./usuario.routes');
 const  ventaRouter  = require('./venta.routes');
