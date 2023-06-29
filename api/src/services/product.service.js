@@ -45,8 +45,8 @@ const   createProduct=  async (req)=>{
     try {
         console.log("entro a create product");
         const {id}=req.params;
-        const {stock,price,detail,image,name} = req.body;
-        if(!stock || !price || !detail || !image || !name){
+        const {stock,price,detail,image,name,categoryId} = req.body;
+        if(!stock || !price || !detail || !image || !name || !categoryId){
             console.log("error faltan datos");
             const err = new customErrors ('Missing Params', 400);
             throw (err);
@@ -59,7 +59,7 @@ const   createProduct=  async (req)=>{
         }
 
         const newName = `${name.toUpperCase()}-${id}`
-        const newProduct= await Products.createProduct(stock,price,detail,image,newName);
+        const newProduct= await Products.createProduct(stock,price,detail,image,newName,categoryId);
         await user.addProduct(newProduct)
        
         return true;

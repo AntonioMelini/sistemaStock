@@ -3,6 +3,7 @@ const {DataTypes}= require('sequelize');
 const {Purchase} =require('./Purchase');
 const { Sale } = require('./Sale');
 const { Product } = require('./Product');
+const { Category} =require('./Category');
 
 
  const User = sequelize.define('users', {
@@ -64,6 +65,15 @@ User.hasMany(Product, {
     sourceKey: 'id'
 })
 Product.belongsTo(User, {
+    foreignKey: 'userId',
+    targetKey: 'id'
+})
+User.hasMany(Category, {
+    foreignKey: 'userId',
+    sourceKey: 'id'
+})
+
+Category.belongsTo(User, {
     foreignKey: 'userId',
     targetKey: 'id'
 })
