@@ -90,9 +90,11 @@ const deleteProduct = async(id)=>{
 
 const increaseStock = async(id,amount)=>{
     try {
-        
+        console.log("increase",amount);
         let stock = await Product.findByPk(id)
+        
         stock = Number(stock.dataValues.stock)+amount
+        console.log(stock,amount,stock+amount);
         await Product.update({
             stock,
         },{
@@ -110,8 +112,11 @@ const increaseStock = async(id,amount)=>{
 }
 const removeStock = async(id,amount)=>{
     try {
+        console.log("remove ",amount);
         let stock = await Product.findByPk(id);
+        
         stock = Number(stock.dataValues.stock)-amount
+        console.log(stock,amount,stock-amount);
         
         await Product.update({
             stock

@@ -5,6 +5,7 @@ const productDatabase = require('../database/products');
 const {manageStock} =require('./manageStock.service');
 
 const validId = async(id)=>{
+    console.log('entrooooooooo');
     try {
         if(!id){
             const err = new customErrors('Missing Params',400);
@@ -21,6 +22,7 @@ const validId = async(id)=>{
     }
 }
 const validPost = async(amount,price,productId)=>{
+    
     if( !amount || !price || !productId){
         const err = new customErrors('Missing Params',400);
         throw (err)
