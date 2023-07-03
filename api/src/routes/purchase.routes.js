@@ -1,41 +1,13 @@
 const {Router} = require('express');
-const compraRouter = Router();
+const purchaseRouter = Router();
+const purchaseControllers = require('../controllers/purchase.controller');
+
+purchaseRouter
+    .get('/:id',purchaseControllers.getAllPurchases)
+    .get('/:id/:purchaseId',purchaseControllers.getOnePurchase)
+    .post('/:id',purchaseControllers.createPurchase)
+    .delete('/:id/:purchaseId',purchaseControllers.deletePurchase)
+    .put('/:id/:purchaseId',purchaseControllers.updatePurchase)
 
 
-compraRouter
-    .get('/:id',(req,res)=>{
-    try {
-        res.send('entraste en compra')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
-    .get('/:id/:purchaseId',(req,res)=>{
-    try {
-        res.send('entraste en compra')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
-    .post('/',(req,res)=>{
-    try {
-        res.send('entraste en compra')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
-    .delete('/',(req,res)=>{
-    try {
-        res.send('entraste en compra')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
-    .update('/',(req,res)=>{
-    try {
-        res.send('entraste en compra')
-    } catch (error) {
-        res.send({error: error.message})
-    }
-})
-module.exports=compraRouter
+module.exports=purchaseRouter
