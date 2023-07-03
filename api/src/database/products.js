@@ -88,12 +88,55 @@ const deleteProduct = async(id)=>{
     }
 };
 
+const increaseStock = async(id,amount)=>{
+    try {
+        
+        let stock = await Product.findByPk(id)
+        stock = Number(stock.dataValues.stock)+amount
+        await Product.update({
+            stock,
+        },{
+            where:{
+                id
+            }
+        })
+        console.log("SE AGREGO STOCK CORRECTAMENTE");
+        return true
+    } catch (error) {
+        console.log(error);
+        const err = new customErrors (error.message||'Database Error', error.statusCode||400);
+        throw (err);
+    }
+}
+const removeStock = async(id,amount)=>{
+    try {
+        let stock = await Product.findByPk(id);
+        stock = Number(stock.dataValues.stock)-amount
+        
+        await Product.update({
+            stock
+        },{
+            where:{
+                id
+            }
+        })
+        console.log("SE REMOVIO STOCK CORRECTAMENTE");
+        return true;
+    } catch (error) {
+        console.log(error);
+        const err = new customErrors (error.message||'Database Error', error.statusCode||400);
+        throw (err);
+    }
+}
+
 module.exports={
     getOneProduct,
     getAllProducts,
     updateProduct,
     createProduct,
     deleteProduct,
-    findProductById
+    findProductById,
+    increaseStock,
+    removeStock
 
 }

@@ -1,19 +1,26 @@
 const asyncErrorHandler = require("../middlewares/asyncErrorHandler")
+const purchaseService = require('../services/purchases.service');
+
 
 const  getAllPurchases = asyncErrorHandler(async(req,res,next)=>{
-    res.status(200).json({ status:'ok', data:'ok'})
+    const allPurchaseDB = await purchaseService.getAllPurchases(req);
+    res.status(200).json({ status:'ok', data:allPurchaseDB})
 })
 const  getOnePurchase = asyncErrorHandler(async(req,res,next)=>{
-    res.status(200).json({ status:'ok', data:'ok'})
+    const onePurchase = await purchaseService.getOnePurchase(req);
+    res.status(200).json({ status:'ok', data:onePurchase})
 })
 const  createPurchase = asyncErrorHandler(async(req,res,next)=>{
-    res.status(200).json({ status:'ok', data:'ok'})
+    await purchaseService.createPurchase(req);
+    res.status(200).json({ status:'ok', data:'Purchese was created'})
 })
 const  deletePurchase = asyncErrorHandler(async(req,res,next)=>{
-    res.status(200).json({ status:'ok', data:'ok'})
+    await purchaseService.deletePurchase(req);
+    res.status(200).json({ status:'ok', data:'Purchase was deleted'})
 })
 const  updatePurchase = asyncErrorHandler(async(req,res,next)=>{
-    res.status(200).json({ status:'ok', data:'ok'})
+    await purchaseService.updatePurchase(req);
+    res.status(200).json({ status:'ok', data:'Purchese was updated'})
 })
 
 

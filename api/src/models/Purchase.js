@@ -12,7 +12,11 @@ const { Product } = require('./Product');
     },
     date: {
         type: DataTypes.DATE,
-        allowNull:false
+        defaultValue: DataTypes.NOW,
+        get(){
+            return this.getDataValue('date').toLocaleString( { timeZone: 'UTC' });
+        }
+
     },
     amount: {
         type: DataTypes.BIGINT,
