@@ -2,7 +2,7 @@ const customErrors = require("../utils/error");
 const userDatabase = require('../database/users');
 const purchaseDatabase = require('../database/purchase');
 const productDatabase = require('../database/products');
-
+const {manageStock} =require('./manageStock.service');
 
 const validId = async(id)=>{
     try {
@@ -28,57 +28,6 @@ const validPost = async(amount,price,productId)=>{
     return true
 }
 //amount price detail producId
-
-const findProductidAmount = async(id,purchaseId)=>{
-    try {
-        let lastPurchase = await purchaseDatabase.getOnePurchase(id,purchaseId);
-            lastPurchase = {amount:lastPurchase.dataValues.amount,productId:lastPurchase.dataValues.productId}
-            return lastPurchase;
-    } catch (error) {
-        throw(error)
-    }
-}
-
-const manageStock = async(purchaseId,id,obj)=>{
-    console.log(obj);
-    if(!obj.amount && !obj.productId ){
-        if(obj.price || obj.detail){
-            console.log("NO TIENE NI AMOUNT NI PRODUCTID");
-            return true;
-        }else{
-            const err = new customErrors('Missing Params',400);
-            throw(err);
-        }
-        
-    }else if(obj.amount && !obj.productId){
-        try {
-            const lastPurchase= await findProductidAmount(id,purchaseId);
-            console.log("esntro a tiene amount ", lastPurchase);
-            await productDatabase.removeStock(lastPurchase.productId,lastPurchase.amount);
-            await productDatabase.increaseStock(lastPurchase.productId,obj.amount);
-            return true;
-        } catch (error) {
-            throw(error)
-        }
-       
-    }else if(obj.productId){
-        try {
-            const lastPurchase= await findProductidAmount(id,purchaseId);
-            console.log("esntro a tiene productId ", lastPurchase);
-            await productDatabase.removeStock(lastPurchase.productId,lastPurchase.amount);
-            //queda sumar el stock del nuevo product id
-            await productDatabase.increaseStock(obj.productId,obj.amount || lastPurchase.amount);
-            return true;
-
-        } catch (error) {
-            throw(error)
-        }
-    }else{
-        const err = new customErrors('Missing Params',400);
-        throw(err);
-    }
-}
-
 const getAllPurchases = async(req)=>{
     try {
         const {id}=req.params;
@@ -155,7 +104,7 @@ const updatePurchase = async(req)=>{
             const err = new customErrors('Missing Params',400);
             throw (err)
         }
-        await manageStock(purchaseId,id,obj);
+        await manageStock(purchaseId,id,obj,'purchase');
         await purchaseDatabase.updatePurchase(purchaseId,id,obj)
         return true;
     } catch (error) {
@@ -169,5 +118,6 @@ module.exports={
     getOnePurchase,
     deletePurchase,
     createPurchase,
-    updatePurchase
+    updatePurchase,
+    validId
 }
