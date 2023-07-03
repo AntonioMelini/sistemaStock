@@ -12,15 +12,15 @@ const  getOneSale = asyncErrorHandler(async(req,res,next)=>{
 })
 const  createSale = asyncErrorHandler(async(req,res,next)=>{
     await salesService.createSale(req);
-    res.status(200).json({ status:'ok', data:'Purchese was created'})
+    res.status(200).json({ status:'ok', data:'Sale was created'})
 })
 const  deleteSale = asyncErrorHandler(async(req,res,next)=>{
     await salesService.deleteSale(req);
-    res.status(200).json({ status:'ok', data:'Purchase was deleted'})
+    res.status(200).json({ status:'ok', data:'Sale was deleted'})
 })
 const  updateSale = asyncErrorHandler(async(req,res,next)=>{
     await salesService.updateSale(req);
-    res.status(200).json({ status:'ok', data:'Purchese was updated'})
+    res.status(200).json({ status:'ok', data:'Sale was updated'})
 })
 
 
