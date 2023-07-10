@@ -3,6 +3,7 @@ const productoRouter = Router();
 const productControllers = require('../controllers/product.controllers');
 
 
+
 productoRouter
     .get('/:id',productControllers.getAllProducts)
     .get('/:id/:productId', productControllers.getOneProduct)
