@@ -6,7 +6,6 @@ const usuarioRouter = Router();
 
 
 usuarioRouter
-    // .get('/',userController.getAllUser)
     .put('/password',userController.updateUserPassword)
     .put('/emails/:id',userController.updateUserEmail)
     .put('/nickname',userController.updateUserNicknames)

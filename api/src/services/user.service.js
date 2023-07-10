@@ -3,9 +3,10 @@ const bcrypt = require('bcrypt');
 const customErrors = require('../utils/error');
 
 const hashingPassword =async (password)=>{
-    return await bcrypt.hash(password,10)
+    return await bcrypt.hash(password,10);
     
 }
+
 const isCompleteThePost= (obj)=>{
     if(obj.name && obj.lastname && obj.email && obj.password) return true
     else {
@@ -38,10 +39,6 @@ const createUser = async (req,res,next)=>{
         throw (error);
     }
 }
-// const getAllUser =  ()=>{
-//     const allUsers = Users.getAllUser();
-//     return allUsers;
-// }
 const updateUserPassword =  async(req)=>{
     try {
         const {password,email} = req.body;
@@ -140,7 +137,6 @@ const deleteUser = async (req)=>{
 
 module.exports = {
     createUser,
-    // getAllUser,
     updateUserPassword,
     updateUserEmail,
     updateUserNicknames,

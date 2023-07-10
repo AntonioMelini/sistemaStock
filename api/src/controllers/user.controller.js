@@ -8,10 +8,6 @@ const createUser =asyncErrorHandler(  async(req,res,next)=>{
 })
 
 
-// const getAllUser = async (req,res)=>{
-//        const allUsers = await userService.getAllUser();
-//        res.status(200).send({status: 'Ok', data:allUsers});
-// }
 
 const updateUserPassword = asyncErrorHandler(async(req,res,next)=>{
     await userService.updateUserPassword(req);
@@ -35,7 +31,6 @@ const deleteUser = asyncErrorHandler(async (req,res)=>{
 })
    module.exports={
     createUser,
-   //  getAllUser,
     updateUserPassword,
     updateUserEmail,
     updateUserNicknames,

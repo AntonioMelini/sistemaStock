@@ -40,18 +40,6 @@ const createUser = async (obj)=> {
 }
 
 
-// const getAllUser = async ()=> {
-//     try {
-      
-//         const usuariosDB = await User.findAll({
-//             attributes:{exclude:['password']}
-//         })
-        
-//         return usuariosDB
-//     } catch (error) {
-//         res.send({error: error.message})
-//     }
-// }
 
 ////////////////////////////
 
@@ -174,9 +162,10 @@ const deleteUser = async (id,email) =>{
         throw (err);
     }
 }
+
+
 module.exports={
     createUser,
-    // getAllUser,
     updateUserPassword,
     updateUserEmail,
     //updateNameLastname,
